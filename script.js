@@ -22,6 +22,14 @@ function createPlayer(name)
         displayScore()
         {
             console.log(`${name} has losses = ${losses} and wins = ${wins}`);
+        },
+        returnPlayerData()
+        {
+            return{
+                name,
+                wins,
+                losses,
+            }
         }
     }
 }
