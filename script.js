@@ -1,8 +1,25 @@
 console.log("Hello World");
-function createGame()
+const gameBoard=(()=>
 {
+    let board=document.querySelector('.game_Area');
+    let gameMatrix = Array(9).fill('');
+    for (let i = 0 ; i < 9;i++)
+    {
+        let element = document.createElement('div');
+        element.id=`box${i+1}`;
+        element.classList.add('ticBox');
+        board.appendChild(element);
 
-}
+    }
+    return{
+        displayBoardOnConsole()
+        {   
+            console.table(gameMatrix);
+            console.log(gameMatrix);
+        }
+    }
+    
+})();
 function createPlayer(name)
 {
     let wins=0;
