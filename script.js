@@ -3,6 +3,17 @@ const gameBoard=(()=>
 {
     let board=document.querySelector('.game_Area');
     let gameMatrix = Array(9).fill('');
+    const winCombinations = [
+        [0,1,2], 
+        [3,4,5], 
+        [6,7,8], 
+        [0,3,6], 
+        [1,4,7], 
+        [2,5,8], 
+        [0,4,8], 
+        [2,4,6], 
+    ]
+    let endGame=false;
     for (let i = 0 ; i < 9;i++)
     {
         let element = document.createElement('div');
@@ -14,8 +25,26 @@ const gameBoard=(()=>
     return{
         displayBoardOnConsole()
         {   
-            console.table(gameMatrix);
-            console.log(gameMatrix);
+            for(let i=0 ; i<9;i++)
+            {
+                console.log(gameMatrix[i]);
+                if(i%3===2)
+                {
+                    console.log('');
+                }
+            }
+        },
+        takeInput()
+        {
+            return input("Select Index 1-9 To place Marker");
+        },
+        playGame()
+        {
+            while(endGame!==true)
+            {
+                playerOne = this.takeInput()-1;
+                gameMatrix[playerOne]='x';
+            }
         }
     }
     
