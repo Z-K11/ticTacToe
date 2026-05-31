@@ -36,15 +36,37 @@ const gameBoard=(()=>
         },
         takeInput()
         {
-            return input("Select Index 1-9 To place Marker");
+            return prompt("Select Index 1-9 To place Marker");
         },
-        playGame()
+        checkWin()
         {
-            while(endGame!==true)
+            for (const array of winCombinations)
             {
+                if(gameMatrix[array[0]]==='x' && gameMatrix[array[1]]==='x' && gameMatrix[array[2]]==='x')
+                    return 1;
+                //Player 1 wins
+                if(gameMatrix[array[0]]==='o' && gameMatrix[array[1]]==='o' && gameMatrix[array[2]]==='o')
+                    return 0;
+                //Player 2 wins
+            }
+               
+            
+        },
+        playRound()
+        {
                 playerOne = this.takeInput()-1;
                 gameMatrix[playerOne]='x';
-            }
+                winner = this.checkWin();
+                if(winner===1)
+                    alert('Player 1 Wins');
+                playerTwo = this.takeInput();
+                gameMatrix[playerTwo]='o';
+                winner=this.checkWin();
+                if(winner===0)
+                    alert('Player 2 wins');
+                console.table(gameMatrix);
+
+        
         }
     }
     
