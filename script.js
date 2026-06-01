@@ -3,6 +3,17 @@ const gameBoard=(()=>
 {
     let board=document.querySelector('.game_Area');
     let gameMatrix = Array(9).fill('');
+    const player_1 = createPlayer('ZK11');
+    const player_2 = createPlayer('Maratib');
+    let end=false;
+    resetBoard()
+    {
+        gameMatrix.fill('');
+    }
+    changeEndStatus()
+    {
+        end===true ? false : true;
+    }
     const winCombinations = [
         [0,1,2], 
         [3,4,5], 
@@ -58,15 +69,29 @@ const gameBoard=(()=>
                 gameMatrix[playerOne]='x';
                 winner = this.checkWin();
                 if(winner===1)
+                {
                     alert('Player 1 Wins');
+                    resetBoard();
+                }
                 playerTwo = this.takeInput();
                 gameMatrix[playerTwo]='o';
                 winner=this.checkWin();
                 if(winner===0)
+                {
                     alert('Player 2 wins');
+                    resetBoard();
+                }
                 console.table(gameMatrix);
 
         
+        },
+        playGame()
+        {
+            while(!end)
+            {
+                this.playRound();
+
+            }
         }
     }
     
@@ -101,5 +126,3 @@ function createPlayer(name)
         }
     }
 }
-const player_1 = createPlayer('ZK11');
-const player_2 = createPlayer('Maratib');
