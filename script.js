@@ -6,13 +6,13 @@ const gameBoard=(()=>
     const player_1 = createPlayer('ZK11');
     const player_2 = createPlayer('Maratib');
     let end=false;
-    resetBoard()
+    const resetBoard=() =>
     {
         gameMatrix.fill('');
     }
-    changeEndStatus()
+    const changeEndStatus=()=>
     {
-        end===true ? false : true;
+        end=end===true ? false : true;
     }
     const winCombinations = [
         [0,1,2], 
@@ -34,6 +34,10 @@ const gameBoard=(()=>
 
     }
     return{
+        displayPlayerData()
+        {
+            player_1.displayScore();
+        },
         displayBoardOnConsole()
         {   
             for(let i=0 ; i<9;i++)
@@ -71,15 +75,23 @@ const gameBoard=(()=>
                 if(winner===1)
                 {
                     alert('Player 1 Wins');
+                    player_1.addWin();
+                    player_2.addLoss();
+                    player_1.displayScore();
                     resetBoard();
+                    return;
                 }
-                playerTwo = this.takeInput();
+                playerTwo = this.takeInput()-1;
                 gameMatrix[playerTwo]='o';
                 winner=this.checkWin();
                 if(winner===0)
                 {
                     alert('Player 2 wins');
+                    player_2.addWin();
+                    player_1.addLoss();
+                    player_2.displayScore();
                     resetBoard();
+                    return;
                 }
                 console.table(gameMatrix);
 
