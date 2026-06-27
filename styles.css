@@ -9,6 +9,7 @@
 {
     font-size: 62.5%;
     --main_dark : rgb(22, 20, 20);
+    --gameFont : "Crafty Girls" , cursive;
 }
 body
 {
