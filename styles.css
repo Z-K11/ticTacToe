@@ -89,6 +89,7 @@ body
     border: 0.2rem white dotted;
     border-radius: 0.5rem;
     height: 3rem;
+    padding: 2% 5%;
 }
 button
 {
@@ -96,9 +97,27 @@ button
     border: 0.2rem white solid;
     padding : 0.6rem 1.5rem;
     border-radius: 1rem;
+    font-family: inherit;
+}
+button:hover
+{
+    font-weight: 900;
+    border-style: dotted;
 }
 .startStopButton
 {
     display: flex;
     justify-content: center;
+}
+.scoreDisplay
+{
+    display: flex;
+    justify-content: space-between;
+    padding : 0 9%;
+
+}
+input:focus
+{
+    outline: none;
+    font-family: inherit;
 }

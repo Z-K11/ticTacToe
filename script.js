@@ -138,4 +138,14 @@ function createPlayer(name)
         }
     }
 }
+let playerOneStart = document.querySelector('#playerOneStart');
+let playerTwoStart = document.querySelector('#playerTwoStart');
+playerOneStart.addEventListener('click',(e)=>
+{
+    console.log(`Button works and the object is ${e.target.id}`);
+})
+playerTwoStart.addEventListener('click',(e)=>
+{
+    console.log(`Button works and the object is ${e.target.id}`);
+})
 
