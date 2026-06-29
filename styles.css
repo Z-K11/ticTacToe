@@ -17,6 +17,7 @@ body
     width: 100vw;
     height: 100vh;
     padding :3% 10%;
+    font-family: var(--gameFont,cursive);
 }
 .main
 {   border : 0.2rem solid white;
@@ -61,6 +62,12 @@ body
 {
     border: white 1px solid;
     border-radius: 15px;
+    padding: 4rem 1.6rem 4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 2rem;
+
 }
 .player_1
 {
@@ -69,4 +76,29 @@ body
 .player_2
 {
     margin-left: 15%;
+}
+.playerName
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.playerName > input
+{
+    background-color: inherit;
+    border: 0.2rem white dotted;
+    border-radius: 0.5rem;
+    height: 3rem;
+}
+button
+{
+    background-color: inherit;
+    border: 0.2rem white solid;
+    padding : 0.6rem 1.5rem;
+    border-radius: 1rem;
+}
+.startStopButton
+{
+    display: flex;
+    justify-content: center;
 }
