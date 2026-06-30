@@ -3,8 +3,8 @@ const gameBoard=(()=>
 {
     let board=document.querySelector('.game_Area');
     let gameMatrix = Array(9).fill('');
-    const player_1 = createPlayer('ZK11');
-    const player_2 = createPlayer('Maratib');
+    let player_1;
+    let player_2;
     let end=false;
     const resetBoard=() =>
     {
@@ -37,6 +37,7 @@ const gameBoard=(()=>
         displayPlayerData()
         {
             player_1.displayScore();
+            player_2.displayScore();
         },
         displayBoardOnConsole()
         {   
@@ -52,6 +53,11 @@ const gameBoard=(()=>
         takeInput()
         {
             return prompt("Select Index 1-9 To place Marker");
+        },
+        initPlayers(name,name2)
+        {
+            player_1=createPlayer(name);
+            player_2=createPlayer(name2);
         },
         checkWin()
         {
@@ -69,9 +75,9 @@ const gameBoard=(()=>
         },
         playRound()
         {
-                playerOne = this.takeInput()-1;
+                let playerOne = this.takeInput()-1;
                 gameMatrix[playerOne]='x';
-                winner = this.checkWin();
+                let winner = this.checkWin();
                 if(winner===1)
                 {
                     alert('Player 1 Wins');
@@ -138,14 +144,34 @@ function createPlayer(name)
         }
     }
 }
+function checkForInput(targetId)
+{
+    let playerOneName = document.querySelector('#name').value.trim();
+    let playerTwoName = document.querySelector('#name2').value.trim();
+    if (playerOneName ==='' || playerTwoName==='')
+    {
+        alert('Please Input Player Name(s).');
+        return;
+    }
+    else
+    {
+        if(targetId==='player_1Start')
+            gameBoard.initPlayers(playerOneName,playerTwoName);
+        else
+            gameBoard.initPlayers(playerTwoName,playerOneName);
+        gameBoard.displayPlayerData();
+    }
+}
 let playerOneStart = document.querySelector('#playerOneStart');
 let playerTwoStart = document.querySelector('#playerTwoStart');
 playerOneStart.addEventListener('click',(e)=>
 {
     console.log(`Button works and the object is ${e.target.id}`);
+    checkForInput(e.target.id);
 })
 playerTwoStart.addEventListener('click',(e)=>
 {
     console.log(`Button works and the object is ${e.target.id}`);
+    checkForInput(e.target.id);
 })
 
