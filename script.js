@@ -174,4 +174,9 @@ playerTwoStart.addEventListener('click',(e)=>
     console.log(`Button works and the object is ${e.target.id}`);
     checkForInput(e.target.id);
 })
+let playArea = document.querySelector('.game_Area');
+playArea.addEventListener('click',(e)=>
+{
+    console.log(`Input Registered at ${e.target.id}`);
+})
 
