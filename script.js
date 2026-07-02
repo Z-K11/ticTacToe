@@ -6,6 +6,7 @@ const gameBoard=(()=>
     let player_1;
     let player_2;
     let end=false;
+    let gameStarted = false;
     const resetBoard=() =>
     {
         gameMatrix.fill('');
@@ -50,14 +51,19 @@ const gameBoard=(()=>
                 }
             }
         },
-        takeInput()
+        startGame()
         {
-            return prompt("Select Index 1-9 To place Marker");
+            if(!gameStarted)
+                gameStarted=true;
+            else
+                alert("error game already started");
+            return;
         },
         initPlayers(name,name2)
         {
             player_1=createPlayer(name);
             player_2=createPlayer(name2);
+            this.startGame;
         },
         checkWin()
         {
@@ -177,6 +183,8 @@ playerTwoStart.addEventListener('click',(e)=>
 let playArea = document.querySelector('.game_Area');
 playArea.addEventListener('click',(e)=>
 {
-    console.log(`Input Registered at ${e.target.id}`);
+    let boxId = e.target.id;
+    let boxNumber = boxId.substring(boxId.length-1,boxId.length)-1;
+    console.log(`Input Registered at ${boxNumber}`);
 })
 
