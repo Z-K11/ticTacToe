@@ -9,6 +9,10 @@ const gameBoard=(()=>
     let playerTwoTurn = false;
     let end=false;
     let gameStarted = false;
+    let playerOneDisplayCard = document.querySelector('.player_1');
+    let playerTwoDisplayCard = document.querySelector('.player_2');
+    let player_1ScoreBoard=document.querySelector('#playerOneScore');
+    let player_2ScoreBoard=document.querySelector('#playerTwoScore');
     const resetBoard=() =>
     {
         gameMatrix.fill('');
@@ -41,7 +45,6 @@ const gameBoard=(()=>
         {
             player_1.displayScore();
             player_2.displayScore();
-            this.startGame();
         },
         displayBoardOnConsole()
         {   
@@ -60,11 +63,15 @@ const gameBoard=(()=>
             {
                 playerOneTurn=false;
                 playerTwoTurn=true;
+                playerTwoDisplayCard.classList.add('activePlayer');
+                playerOneDisplayCard.classList.remove('activePlayer');
             }
             else if (playerTwoTurn)
             {
                 playerTwoTurn=false;
                 playerOneTurn=true;
+                playerOneDisplayCard.classList.add('activePlayer');
+                playerTwoDisplayCard.classList.remove('activePlayer');
             }
             else
                 alert("Error in changing player turn");
@@ -97,35 +104,51 @@ const gameBoard=(()=>
                
             
         },
+        updateScore()
+        {
+            let playerOneScore = player_1.returnScore();
+            let playerTwoScore = player_2.returnScore();
+            player_1ScoreBoard.textContent=playerOneScore;
+            player_2ScoreBoard.textContent=playerTwoScore;
+        },
         playRound(input)
         {
-            console.log(gameStarted);
+        let boxNumber = input.substring(input.length-1,input.length)-1;
+
                 if(gameStarted)
                 {
-                    let playerOne = input;
-                    gameMatrix[playerOne]='x';
-                    let winner = this.checkWin();
-                    if(winner===1)
+                    console.log(`${playerOneTurn} and ${playerTwoTurn}`);
+                    if(playerOneTurn)
                     {
-                        alert('Player 1 Wins');
-                        player_1.addWin();
-                        player_2.addLoss();
-                        player_1.displayScore();
-                        resetBoard();
-                        return;
+                        let playerOne = boxNumber;
+                        gameMatrix[playerOne]='x';
+                        let winner = this.checkWin();
+                        if(winner===1)
+                        {
+                            alert('Player 1 Wins');
+                            player_1.addWin();
+                            player_2.addLoss();
+                            player_1.displayScore();
+                            resetBoard();
+                            return;
+                        }
                     }
-                    let playerTwo = input;
-                    gameMatrix[playerTwo]='o';
-                    winner=this.checkWin();
-                    if(winner===0)
+                    if(playerTwoTurn)
                     {
-                        alert('Player 2 wins');
-                        player_2.addWin();
-                        player_1.addLoss();
-                        player_2.displayScore();
-                        resetBoard();
-                        return;
+                        let playerTwo = boxNumber;
+                        gameMatrix[playerTwo]='o';
+                        winner=this.checkWin();
+                        if(winner===0)
+                        {
+                          alert('Player 2 wins');
+                            player_2.addWin();
+                            player_1.addLoss();
+                            player_2.displayScore();
+                            resetBoard();
+                            return;
+                        }
                     }
+                    this.changeTurn();
                     console.table(gameMatrix);
                 }
                 else
@@ -174,6 +197,10 @@ function createPlayer(name)
                 wins,
                 losses,
             }
+        },
+        returnScore()
+        {
+            return wins-losses;
         }
     }
 }
@@ -200,19 +227,20 @@ let playerTwoStart = document.querySelector('#playerTwoStart');
 playerOneStart.addEventListener('click',(e)=>
 {
     console.log(`Button works and the object is ${e.target.id}`);
+    gameBoard.changeTurn();
+    gameBoard.changeTurn();
     checkForInput(e.target.id);
 })
 playerTwoStart.addEventListener('click',(e)=>
 {
     console.log(`Button works and the object is ${e.target.id}`);
+    gameBoard.changeTurn();
     checkForInput(e.target.id);
 })
 let playArea = document.querySelector('.game_Area');
 playArea.addEventListener('click',(e)=>
 {
     let boxId = e.target.id;
-    let boxNumber = boxId.substring(boxId.length-1,boxId.length)-1;
-    console.log(`Input Registered at ${boxNumber}`);
-    gameBoard.playRound(boxNumber);
+    gameBoard.playRound(boxId);
 })
 
