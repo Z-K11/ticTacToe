@@ -5,6 +5,8 @@ const gameBoard=(()=>
     let gameMatrix = Array(9).fill('');
     let player_1;
     let player_2;
+    let playerOneTurn = true;
+    let playerTwoTurn = false;
     let end=false;
     let gameStarted = false;
     const resetBoard=() =>
@@ -39,6 +41,7 @@ const gameBoard=(()=>
         {
             player_1.displayScore();
             player_2.displayScore();
+            this.startGame();
         },
         displayBoardOnConsole()
         {   
@@ -50,6 +53,22 @@ const gameBoard=(()=>
                     console.log('');
                 }
             }
+        },
+        changeTurn()
+        {
+            if(playerOneTurn)
+            {
+                playerOneTurn=false;
+                playerTwoTurn=true;
+            }
+            else if (playerTwoTurn)
+            {
+                playerTwoTurn=false;
+                playerOneTurn=true;
+            }
+            else
+                alert("Error in changing player turn");
+            return;
         },
         startGame()
         {
@@ -63,7 +82,6 @@ const gameBoard=(()=>
         {
             player_1=createPlayer(name);
             player_2=createPlayer(name2);
-            this.startGame;
         },
         checkWin()
         {
@@ -79,33 +97,42 @@ const gameBoard=(()=>
                
             
         },
-        playRound()
+        playRound(input)
         {
-                let playerOne = this.takeInput()-1;
-                gameMatrix[playerOne]='x';
-                let winner = this.checkWin();
-                if(winner===1)
+            console.log(gameStarted);
+                if(gameStarted)
                 {
-                    alert('Player 1 Wins');
-                    player_1.addWin();
-                    player_2.addLoss();
-                    player_1.displayScore();
-                    resetBoard();
+                    let playerOne = input;
+                    gameMatrix[playerOne]='x';
+                    let winner = this.checkWin();
+                    if(winner===1)
+                    {
+                        alert('Player 1 Wins');
+                        player_1.addWin();
+                        player_2.addLoss();
+                        player_1.displayScore();
+                        resetBoard();
+                        return;
+                    }
+                    let playerTwo = input;
+                    gameMatrix[playerTwo]='o';
+                    winner=this.checkWin();
+                    if(winner===0)
+                    {
+                        alert('Player 2 wins');
+                        player_2.addWin();
+                        player_1.addLoss();
+                        player_2.displayScore();
+                        resetBoard();
+                        return;
+                    }
+                    console.table(gameMatrix);
+                }
+                else
+                {
+                    alert("Error in playRound()");
                     return;
                 }
-                playerTwo = this.takeInput()-1;
-                gameMatrix[playerTwo]='o';
-                winner=this.checkWin();
-                if(winner===0)
-                {
-                    alert('Player 2 wins');
-                    player_2.addWin();
-                    player_1.addLoss();
-                    player_2.displayScore();
-                    resetBoard();
-                    return;
-                }
-                console.table(gameMatrix);
 
         
         },
@@ -186,5 +213,6 @@ playArea.addEventListener('click',(e)=>
     let boxId = e.target.id;
     let boxNumber = boxId.substring(boxId.length-1,boxId.length)-1;
     console.log(`Input Registered at ${boxNumber}`);
+    gameBoard.playRound(boxNumber);
 })
 
