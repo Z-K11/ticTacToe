@@ -16,6 +16,11 @@ const gameBoard=(()=>
     const resetBoard=() =>
     {
         gameMatrix.fill('');
+        for(let i=0;i<9;i++)
+        {
+            let element = document.querySelector(`#box${i+1}`);
+            element.textContent='';
+        }
     }
     const changeEndStatus=()=>
     {
@@ -142,6 +147,7 @@ const gameBoard=(()=>
                                 this.updateScore();
                                 return;
                             }
+                        
                         this.changeTurn();
                         }
                     }
@@ -166,6 +172,11 @@ const gameBoard=(()=>
                             this.changeTurn();
 
                         }
+                    }
+                    if(gameMatrix.every(x=> x!==''))
+                    {
+                        alert('It is a draw');
+                        resetBoard();
                     }
                     console.table(gameMatrix);
                 }
