@@ -7,7 +7,6 @@ const gameBoard=(()=>
     let player_2;
     let playerOneTurn = true;
     let playerTwoTurn = false;
-    let end=false;
     let gameStarted = false;
     let playerOneDisplayCard = document.querySelector('.player_1');
     let playerTwoDisplayCard = document.querySelector('.player_2');
@@ -22,10 +21,6 @@ const gameBoard=(()=>
             element.textContent='';
         }
     }
-    const changeEndStatus=()=>
-    {
-        end=end===true ? false : true;
-    }
     const winCombinations = [
         [0,1,2], 
         [3,4,5], 
@@ -36,7 +31,6 @@ const gameBoard=(()=>
         [0,4,8], 
         [2,4,6], 
     ]
-    let endGame=false;
     for (let i = 0 ; i < 9;i++)
     {
         let element = document.createElement('div');
@@ -55,17 +49,6 @@ const gameBoard=(()=>
         {
             player_1.displayScore();
             player_2.displayScore();
-        },
-        displayBoardOnConsole()
-        {   
-            for(let i=0 ; i<9;i++)
-            {
-                console.log(gameMatrix[i]);
-                if(i%3===2)
-                {
-                    console.log('');
-                }
-            }
         },
         changeTurn()
         {
@@ -188,14 +171,6 @@ const gameBoard=(()=>
 
         
         },
-        playGame()
-        {
-            while(!end)
-            {
-                this.playRound();
-
-            }
-        }
     }
     
 })();
