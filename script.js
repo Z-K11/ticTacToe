@@ -89,6 +89,7 @@ const gameBoard=(()=>
         {
             player_1=createPlayer(name);
             player_2=createPlayer(name2);
+            this.startGame();
         },
         checkWin()
         {
@@ -121,34 +122,46 @@ const gameBoard=(()=>
                     if(playerOneTurn)
                     {
                         let playerOne = boxNumber;
+                        if(gameMatrix[playerOne]==='')
+                        {
+
+                        
                         gameMatrix[playerOne]='x';
                         let winner = this.checkWin();
                         if(winner===1)
-                        {
-                            alert('Player 1 Wins');
-                            player_1.addWin();
-                            player_2.addLoss();
-                            player_1.displayScore();
-                            resetBoard();
-                            return;
+                            {
+                                alert('Player 1 Wins');
+                                player_1.addWin();
+                                player_2.addLoss();
+                                player_1.displayScore();
+                                resetBoard();
+                                this.updateScore();
+                                return;
+                            }
+                        this.changeTurn();
                         }
                     }
                     if(playerTwoTurn)
                     {
                         let playerTwo = boxNumber;
-                        gameMatrix[playerTwo]='o';
-                        winner=this.checkWin();
-                        if(winner===0)
-                        {
-                          alert('Player 2 wins');
-                            player_2.addWin();
-                            player_1.addLoss();
-                            player_2.displayScore();
-                            resetBoard();
-                            return;
+                        if(gameMatrix[playerTwo]==='')
+                        {        
+                            gameMatrix[playerTwo]='o';
+                            winner=this.checkWin();
+                            if(winner===0)
+                            {
+                              alert('Player 2 wins');
+                                player_2.addWin();
+                                player_1.addLoss();
+                                player_2.displayScore();
+                                resetBoard();
+                                this.updateScore();
+                                return;
+                            }
+                            this.changeTurn();
+
                         }
                     }
-                    this.changeTurn();
                     console.table(gameMatrix);
                 }
                 else
