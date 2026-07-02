@@ -141,7 +141,7 @@ const gameBoard=(()=>
                         {        
                             gameMatrix[playerTwo]='o';
                             markOnBoard(input,'o');
-                            winner=this.checkWin();
+                            let winner=this.checkWin();
                             if(winner===0)
                             {
                               alert('Player 2 wins');
