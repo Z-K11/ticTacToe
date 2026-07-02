@@ -57,6 +57,10 @@ body
     background-color: var(--main_dark,black);
     width: 100%;
     height: 100%;
+    font-size: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .player_1,.player_2
 {

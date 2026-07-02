@@ -40,6 +40,11 @@ const gameBoard=(()=>
         board.appendChild(element);
 
     }
+    function markOnBoard(id,marker)
+    {
+        let markArea = document.querySelector(`#${id}`);
+        markArea.textContent=marker;
+    }
     return{
         displayPlayerData()
         {
@@ -123,10 +128,9 @@ const gameBoard=(()=>
                     {
                         let playerOne = boxNumber;
                         if(gameMatrix[playerOne]==='')
-                        {
-
-                        
+                        {                        
                         gameMatrix[playerOne]='x';
+                        markOnBoard(input,'x');
                         let winner = this.checkWin();
                         if(winner===1)
                             {
@@ -147,6 +151,7 @@ const gameBoard=(()=>
                         if(gameMatrix[playerTwo]==='')
                         {        
                             gameMatrix[playerTwo]='o';
+                            markOnBoard(input,'o');
                             winner=this.checkWin();
                             if(winner===0)
                             {
